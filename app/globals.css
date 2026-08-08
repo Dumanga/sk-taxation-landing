@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * SK Taxation palette — dark is the default theme; the light theme is a
+ * crisp white/mint scheme with deep teal + amber accents. Both themes share
+ * the same semantic tokens, flipped via the `.dark` class.
+ * Sections styled `bg-ink text-cream` intentionally invert in dark mode.
+ * (Token names are legacy: "cream" = page background, "ink" = foreground.)
+ */
+:root {
+  --cream: #e7f5ef;
+  --cream-dark: #d4ecdf;
+  --ink: #06332c;
+  --ink-soft: #14584a;
+  --muted: #47776a;
+  --gold: #d3941f;
+  --gold-soft: #e9b95d;
+  --teal: #089a86;
+  --line: #bcdfd0;
+  --surface: #fbfffd;
+  /* Hero stays dark in both themes but responds to the toggle:
+     lighter teal overlay + brighter glass in light mode. */
+  --hero-overlay: rgba(11, 64, 54, 0.72);
+  --hero-glass: rgba(255, 255, 255, 0.14);
+}
+
+.dark {
+  --cream: #071d1a;
+  --cream-dark: #0c2824;
+  --ink: #e9f5f0;
+  --ink-soft: #c9e2d8;
+  --muted: #8fada4;
+  --gold: #f0b452;
+  --gold-soft: #c98b2d;
+  --teal: #35d0bc;
+  --line: #17352f;
+  --surface: #0e2b26;
+  --hero-overlay: rgba(4, 27, 23, 0.84);
+  --hero-glass: rgba(255, 255, 255, 0.07);
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-teal: var(--teal);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-grotesk), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+::selection {
+  background: var(--gold);
+  color: #fff;
+}
+
+/* Teal → amber gradient text for accent words in headings */
+.text-shine {
+  background: linear-gradient(95deg, var(--teal), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Marquee strip */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+/* Slow spin for decorative dials */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 24s linear infinite;
+}
