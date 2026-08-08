@@ -1,5 +1,28 @@
 # Progress Log — SK Taxation Landing Page
 
+## 2026-08-09 01:40
+
+**Deployed to GitHub Pages for client review.**
+
+- Live URL: **https://dumanga.github.io/sk-taxation-landing/**
+- Configured static export in `next.config.ts`: `output: "export"`, `trailingSlash: true`,
+  `images.unoptimized`, and `basePath`/`assetPrefix` gated behind `GITHUB_PAGES=true` so local
+  dev still runs at the root.
+- **Bug caught pre-deploy:** `images.unoptimized` bypasses the image loader, so `next/image`
+  emitted `src="/hero-bg.jpg"` without the base path — the hero photo would have 404'd on Pages
+  while working fine locally. Fixed by exporting `NEXT_PUBLIC_BASE_PATH` from the config and
+  prefixing the src in `Hero.tsx`.
+- Added `.github/workflows/deploy.yml` (build + `actions/deploy-pages`, `enablement: true`).
+- Verified the built export locally by serving `out/` under a `/sk-taxation-landing/` path:
+  index, hero image, JS and CSS all 200; page rendered correctly and the theme toggle worked.
+- Pruned unused create-next-app SVGs from `public/`; gitignored `.claude/settings.local.json`;
+  replaced the scaffold README with a project one.
+- Repo was private (Pages needs public on the free plan) — **made public with the client's
+  approval** after scanning for secrets (none: no `.env`, contact details are placeholders).
+
+**Note for client review:** contact details are still placeholders, and the contact form opens
+the visitor's mail app rather than posting to a backend.
+
 ## 2026-08-09 01:17
 
 **Two hero tweaks from client review.**

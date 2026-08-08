@@ -56,6 +56,20 @@ Shared animation primitives are in `components/Reveal.tsx`:
 
 All animation components respect `prefers-reduced-motion` via `useReducedMotion`.
 
+## Deployment
+
+Static export to **GitHub Pages** at https://dumanga.github.io/sk-taxation-landing/, via
+`.github/workflows/deploy.yml` on every push to `main` (or manual `workflow_dispatch`).
+
+- `next.config.ts` sets `output: "export"`, `trailingSlash: true`, and `images.unoptimized`.
+- `basePath`/`assetPrefix` are applied **only** when `GITHUB_PAGES=true` (set by the workflow),
+  so `npm run dev` still serves at the root.
+- **Gotcha:** `images.unoptimized` bypasses the image loader, so `next/image` does *not*
+  prefix `basePath` onto `src`. Any `src` pointing at `public/` must prefix it manually with
+  `process.env.NEXT_PUBLIC_BASE_PATH` (exported from `next.config.ts` via `env`), as
+  `Hero.tsx` does for `hero-bg.jpg`. Without this the image 404s on Pages but works locally.
+- The repo must stay **public** for Pages to serve on a free GitHub plan.
+
 ## Conventions
 
 - Update `PROGRESS.md` with a dated entry (date **and** time) after any meaningful change — client requirement.
