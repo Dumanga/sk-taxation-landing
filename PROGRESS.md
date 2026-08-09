@@ -1,5 +1,28 @@
 # Progress Log — SK Taxation Landing Page
 
+## 2026-08-09 16:22
+
+**Client approved the design. Created the content-collection workbook.**
+
+- Built `SK-Taxation-Website-Content-Form.xlsx` (7 sheets) for the client to fill in and return:
+  Start Here (instructions + legend), 1. Business Details, 2. Testimonials, 3. Key Numbers,
+  4. Services, 5. About & Team, 6. Logo & Images.
+- Yellow cells = client input; grey italic rows = worked examples. Testimonials and Team sheets
+  include a realistic sample row; Testimonials also explains what a testimonial is, how to ask
+  clients for one, and what makes a strong one. Yes/No and Keep/Change/Remove cells use dropdowns.
+- **Flagged the fabricated content prominently.** The hero stats (15+ years, 200+ clients,
+  98% retention) and all three testimonials currently on the live site were written by us as
+  placeholders. The "Key Numbers" sheet carries a red warning that these are invented, must be
+  replaced, and could be treated as misleading advertising if published unverified; the
+  "Start Here" sheet repeats the warning and offers to take the preview offline until the real
+  content lands.
+- Validated the file: zip integrity OK, all OOXML parts present, read back cleanly via openpyxl.
+- File lives in the repo root, untracked (not committed — it is a client document, and the repo
+  is public).
+
+**Next once the form comes back:** swap the real details into `Contact.tsx`, `Footer.tsx`,
+`Testimonials.tsx`, `Hero.tsx` (stats), `Services.tsx` and `About.tsx`, then redeploy.
+
 ## 2026-08-09 01:40
 
 **Deployed to GitHub Pages for client review.**
