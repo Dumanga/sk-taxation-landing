@@ -14,9 +14,11 @@
 - Deployment made repo-aware: basePath, canonical/OG URLs, JSON-LD and sitemap all derive
   from GITHUB_REPOSITORY at build time. Pushed to the client's repo
   **sk-taxation/official-website** (collaborator access confirmed: public repo, empty,
-  push rights); its Pages site self-enables via the workflow.
-  Canonical site: https://sk-taxation.github.io/official-website/
-  Development copy continues at https://dumanga.github.io/sk-taxation-landing/.
+  push rights). The first workflow run failed at "Configure Pages": enabling Pages requires
+  repo ADMIN, and our access is write-level, so the client must flip Settings > Pages >
+  Source: GitHub Actions once; then a re-run deploys. Canonical site (once enabled):
+  https://sk-taxation.github.io/official-website/
+  Development copy deployed fine at https://dumanga.github.io/sk-taxation-landing/.
 
 ## 2026-10-21 11:57
 
