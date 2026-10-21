@@ -1,11 +1,12 @@
+import Link from "next/link";
 import { Logo } from "./Logo";
 import { BUSINESS } from "@/lib/site";
 
 const nav = [
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#updates", label: "Latest Updates" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#services", label: "Services" },
+  { href: "/#updates", label: "Latest Updates" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Footer() {
@@ -24,13 +25,13 @@ export function Footer() {
 
           <nav className="flex flex-col gap-3 md:items-center" aria-label="Footer">
             {nav.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="w-fit text-sm text-cream/70 transition-colors hover:text-gold"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 

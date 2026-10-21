@@ -2,16 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 
 /* Navigation structure as specified by the client:
    About | Services | Latest Updates | Contact */
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#updates", label: "Latest Updates" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#services", label: "Services" },
+  { href: "/#updates", label: "Latest Updates" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -46,25 +47,25 @@ export function Header() {
         <div className="flex items-center gap-3">
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
             {links.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="group relative text-sm font-medium tracking-wide text-ink-soft transition-colors hover:text-ink"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-              </a>
+              </Link>
             ))}
           </nav>
 
           <ThemeToggle />
 
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="hidden rounded-full border border-ink px-5 py-2 text-sm font-medium text-ink transition-all duration-300 hover:bg-ink hover:text-cream lg:inline-block"
           >
             Book a Consultation
-          </a>
+          </Link>
 
           <button
             onClick={() => setOpen((v) => !v)}
@@ -98,22 +99,22 @@ export function Header() {
           >
             <div className="flex flex-col gap-1 px-6 py-4">
               {links.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className="py-2 font-serif text-lg text-ink"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
-              <a
-                href="#contact"
+              <Link
+                href="/#contact"
                 onClick={() => setOpen(false)}
                 className="mt-2 w-fit rounded-full border border-ink px-5 py-2 text-sm font-medium text-ink"
               >
                 Book a Consultation
-              </a>
+              </Link>
             </div>
           </motion.nav>
         )}

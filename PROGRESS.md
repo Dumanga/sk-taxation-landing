@@ -1,5 +1,32 @@
 # Progress Log — SK Taxation Landing Page
 
+## 2026-10-21 11:57
+
+**Latest Updates expanded to six researched items with a carousel and full article pages.**
+
+- Researched current Sri Lankan tax developments via web search (KPMG alerts, IRD notices,
+  gazetted Acts, press) and built `lib/updates.ts` with six entries, newest first:
+  1. 18% VAT on cross-border digital services (effective 1 July 2026 after two deferrals)
+  2. Inland Revenue (Amendment) Act No. 11 of 2026 (CGT 15%, Rs. 500k banking-channel rule,
+     arrears interest waiver)
+  3. Budget 2026 (VAT/SSCL registration threshold Rs. 60M to Rs. 36M from 1 April 2026)
+  4. SVAT abolition and risk-based VAT refunds (from 1 October 2025)
+  5. Personal relief to Rs. 1.8M (1 April 2025)
+  6. AIT on interest doubled to 10% (1 April 2025)
+  Each entry carries a full article: intro, sections, "what you should do now", named sources.
+- Home section is now a carousel: native scroll-snap with auto-advance every 4.5s, arrows,
+  dots, pause on hover/touch, swipeable on mobile, disabled auto-play for reduced motion.
+- Clicking a card opens its own page at /updates/<slug>/ (6 static pages via
+  generateStaticParams): breadcrumbs (visible + JSON-LD), Article schema, unique titles,
+  canonical URLs, sources with external links, contact CTA, "More updates" cross-links;
+  all added to sitemap.xml (7 URLs total).
+- Header, Footer and Logo links converted to next/link with /#anchor hrefs so navigation
+  works from article pages under the GitHub Pages basePath.
+- Verified on the built export: carousel auto-advances, all six links resolve, article pages
+  render with clean console, one h1 per page, no em dashes. Lint and build clean.
+- **Client to review:** the six articles are fact-checked against the cited sources, but a
+  professional read before promotion is recommended; future updates should come from the client.
+
 ## 2026-10-21 11:47
 
 **Light-default fix for returning visitors, brighter light palette, verified + refreshed updates.**

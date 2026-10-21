@@ -23,7 +23,7 @@ export function Logo({ tone = "default" }: { tone?: Tone }) {
         : "text-[#f4faf7]/60";
 
   return (
-    <Link href="#top" className="group inline-flex items-baseline gap-2">
+    <Link href="/" className="group inline-flex items-baseline gap-2">
       <span
         className={`font-serif text-2xl font-semibold tracking-tight transition-colors duration-500 ${main}`}
       >
