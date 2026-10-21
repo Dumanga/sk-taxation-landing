@@ -22,7 +22,7 @@ export const BUSINESS = {
     "SK Taxation is a Sri Lankan tax advisory firm providing tax consultancy, audit and assurance, accounting, CFO and company secretarial services for corporate and non-corporate clients.",
   phones: ["+94 77 714 1648", "+94 76 919 4508"],
   phonesDisplay: ["0777 14 16 48", "076 919 4508"],
-  email: "hello@sktaxation.com", // placeholder, pending client confirmation
+  email: "sk.taxservices19@gmail.com", // confirmed by the client, Oct 2026
   hours: "Mon to Fri, 9 am to 5 pm",
   areaServed: "Sri Lanka",
 } as const;

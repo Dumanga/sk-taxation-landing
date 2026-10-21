@@ -25,7 +25,7 @@ Single-page marketing site for **SK Taxation**, a Sri Lankan tax advisory firm. 
 
 `lib/site.ts` holds the business facts (name, **real client phone numbers**, email, hours) and the five services with their sub-service lists (verbatim from the client's Oct 2026 Word doc). JSON-LD, Contact, Footer and Services all read from it — edit there, not in components.
 
-**Copy rules from the client/owner:** no em or en dashes in any user-visible copy (use commas or "to"), no lorem ipsum, no purple/violet anywhere, single `h1` (the hero headline). The email `hello@sktaxation.com` and the hero stats (15+/200+/98%) are still placeholders pending client confirmation.
+**Copy rules from the client/owner:** no em or en dashes in any user-visible copy (use commas or "to"), no lorem ipsum, no purple/violet anywhere, single `h1` (the hero headline). The email (sk.taxservices19@gmail.com) and phone numbers are the client's confirmed details; the hero stats (15+/200+/98%) are still placeholders pending client confirmation.
 
 ## Theming
 

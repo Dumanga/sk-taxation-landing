@@ -41,6 +41,6 @@ unaffected and still runs at the root.
 
 ## Notes
 
-- Contact details (`+94 11 234 5678`, `hello@sktaxation.com`) are placeholders pending real client info.
+- Phone numbers and email are the client's confirmed details; the hero stats are placeholders pending confirmation.
 - See [AGENTS.md](AGENTS.md) for the design system and component architecture, and
   [PROGRESS.md](PROGRESS.md) for the change log.

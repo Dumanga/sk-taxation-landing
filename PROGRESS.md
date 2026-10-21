@@ -1,5 +1,14 @@
 # Progress Log — SK Taxation Landing Page
 
+## 2026-10-21 15:37
+
+**Real contact email wired in.**
+
+- Client confirmed the firm's email as sk.taxservices19@gmail.com (via WhatsApp screenshot);
+  replaced the hello@sktaxation.com placeholder in lib/site.ts. Contact section display,
+  the form's mailto destination and the footer all pick it up; AGENTS.md and README notes
+  updated. Remaining placeholder: hero stats (15+/200+/98%).
+
 ## 2026-10-21 12:13
 
 **Client site is LIVE: https://sk-taxation.github.io/official-website/**
