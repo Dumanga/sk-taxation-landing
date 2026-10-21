@@ -7,7 +7,7 @@ import { Reveal } from "./Reveal";
 const steps = [
   {
     title: "Discover",
-    desc: "We start with a conversation — understanding your business, your obligations and where you want to be.",
+    desc: "We start with a conversation, understanding your business, your obligations and where you want to be.",
   },
   {
     title: "Plan",

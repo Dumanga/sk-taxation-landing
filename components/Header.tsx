@@ -5,12 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 
+/* Navigation structure as specified by the client:
+   About | Services | Latest Updates | Contact */
 const links = [
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
-  { href: "#why-us", label: "Why Us" },
-  { href: "#process", label: "Process" },
-  { href: "#testimonials", label: "Testimonials" },
+  { href: "#updates", label: "Latest Updates" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -24,18 +25,13 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* While floating over the dark hero photo the header uses fixed light
-     colours; once scrolled (or with the mobile menu open) it goes solid
-     and follows the theme tokens. */
-  const solid = scrolled || open;
-
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        solid
+        scrolled || open
           ? "bg-cream/90 shadow-[0_1px_0_0_var(--line)] backdrop-blur-md"
           : "bg-transparent"
       }`}
@@ -45,19 +41,15 @@ export function Header() {
           scrolled ? "py-3" : "py-5"
         }`}
       >
-        <Logo tone={solid ? "default" : "overlay"} />
+        <Logo />
 
         <div className="flex items-center gap-3">
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className={`group relative text-sm font-medium tracking-wide transition-colors duration-500 ${
-                  solid
-                    ? "text-ink-soft hover:text-ink"
-                    : "text-[#d7e8e1] hover:text-[#f4faf7]"
-                }`}
+                className="group relative text-sm font-medium tracking-wide text-ink-soft transition-colors hover:text-ink"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
@@ -65,15 +57,11 @@ export function Header() {
             ))}
           </nav>
 
-          <ThemeToggle overlay={!solid} />
+          <ThemeToggle />
 
           <a
             href="#contact"
-            className={`hidden rounded-full border px-5 py-2 text-sm font-medium transition-all duration-300 lg:inline-block ${
-              solid
-                ? "border-ink text-ink hover:bg-ink hover:text-cream"
-                : "border-white/40 text-[#f4faf7] hover:bg-[#f0b452] hover:border-[#f0b452] hover:text-[#08221d]"
-            }`}
+            className="hidden rounded-full border border-ink px-5 py-2 text-sm font-medium text-ink transition-all duration-300 hover:bg-ink hover:text-cream lg:inline-block"
           >
             Book a Consultation
           </a>
@@ -85,14 +73,14 @@ export function Header() {
             aria-expanded={open}
           >
             <span
-              className={`h-px w-6 transition-all duration-300 ${
-                solid ? "bg-ink" : "bg-[#f4faf7]"
-              } ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+              className={`h-px w-6 bg-ink transition-transform duration-300 ${
+                open ? "translate-y-[3.5px] rotate-45" : ""
+              }`}
             />
             <span
-              className={`h-px w-6 transition-all duration-300 ${
-                solid ? "bg-ink" : "bg-[#f4faf7]"
-              } ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+              className={`h-px w-6 bg-ink transition-transform duration-300 ${
+                open ? "-translate-y-[3.5px] -rotate-45" : ""
+              }`}
             />
           </button>
         </div>
@@ -106,6 +94,7 @@ export function Header() {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
             className="overflow-hidden border-t border-line bg-cream lg:hidden"
+            aria-label="Mobile"
           >
             <div className="flex flex-col gap-1 px-6 py-4">
               {links.map((link) => (

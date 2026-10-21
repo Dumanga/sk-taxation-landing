@@ -6,11 +6,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # SK Taxation — Landing Page
 
-Single-page marketing site for **SK Taxation**, a tax advisory firm. Animation-heavy landing page inspired by the content structure of dasanayakaassociates.com (modernised design). **Dark theme is the default**; a light theme is available via the header toggle.
+Single-page marketing site for **SK Taxation**, a Sri Lankan tax advisory firm. Animation-heavy landing page. **Light theme is the default** (client requirement, Oct 2026); dark theme via the header toggle.
 
 ## Stack
 
-- **Next.js 16** (App Router, TypeScript, static output — all sections prerender)
+- **Next.js 16** (App Router, TypeScript, static export — all routes prerender)
 - **Tailwind CSS v4** — no `tailwind.config`; design tokens live in `@theme inline` inside `app/globals.css`
 - **Framer Motion 12** for all animations
 - Fonts via `next/font`: Fraunces (serif, headings) + Space Grotesk (sans, body)
@@ -21,57 +21,62 @@ Single-page marketing site for **SK Taxation**, a tax advisory firm. Animation-h
 - `npm run build` — production build (run this to type-check)
 - `npm run lint` — eslint
 
+## Content source of truth
+
+`lib/site.ts` holds the business facts (name, **real client phone numbers**, email, hours) and the five services with their sub-service lists (verbatim from the client's Oct 2026 Word doc). JSON-LD, Contact, Footer and Services all read from it — edit there, not in components.
+
+**Copy rules from the client/owner:** no em or en dashes in any user-visible copy (use commas or "to"), no lorem ipsum, no purple/violet anywhere, single `h1` (the hero headline). The email `hello@sktaxation.com` and the hero stats (15+/200+/98%) are still placeholders pending client confirmation.
+
 ## Theming
 
-Semantic CSS variables are defined on `:root` (light) and `.dark` (dark) in `app/globals.css`, then mapped to Tailwind colors via `@theme inline`. Token names are legacy: **`cream` = page background, `ink` = foreground** — in dark mode they flip, so sections styled `bg-ink text-cream` (Marquee, Process, Footer) intentionally render as light bands on the dark theme.
+Semantic CSS variables on `:root` (light) and `.dark` in `app/globals.css`, mapped to Tailwind colors via `@theme inline`. Token names are legacy: **`cream` = page background, `ink` = foreground** — they flip in dark mode, so `bg-ink text-cream` bands (Marquee, Process, Footer) render light-on-dark in light mode and invert in dark mode.
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `cream` / `cream-dark` | `#e7f5ef` / `#d4ecdf` | `#071d1a` / `#0c2824` | page + alternate section backgrounds (light = mint tint, NOT white/cream — client requirement) |
+| `cream` / `cream-dark` | `#e7f5ef` / `#d4ecdf` | `#071d1a` / `#0c2824` | page + alternate section backgrounds |
 | `ink` / `ink-soft` | `#06332c` / `#14584a` | `#e9f5f0` / `#c9e2d8` | headings, inverted bands / body emphasis |
 | `muted` | `#47776a` | `#8fada4` | secondary text |
-| `gold` / `gold-soft` | `#d3941f` / `#e9b95d` | `#f0b452` / `#c98b2d` | primary accent (matches logo) |
+| `gold` / `gold-soft` | `#d3941f` / `#e9b95d` | `#f0b452` / `#c98b2d` | primary accent |
 | `teal` | `#089a86` | `#35d0bc` | secondary accent, gradients |
 | `line` | `#bcdfd0` | `#17352f` | borders/dividers |
 | `surface` | `#fbfffd` | `#0e2b26` | cards, form panels |
+| `--hero-overlay/scrim/glass` | mint wash / frosted white | deep teal / faint film | hero photo treatment |
 
-- Theme is applied before first paint by an inline script in `app/layout.tsx`: **dark unless** `localStorage["sk-theme"] === "light"`. `ThemeToggle` (in the header) flips the `.dark` class and persists the choice.
-- The `dark:` variant is class-based (`@custom-variant dark`), but components rarely need it — token flipping handles both themes.
-- `.text-shine` (globals.css) = teal→gold gradient text, used on the accent word of section headings.
-- Headings use `font-serif`; section kickers are uppercase letter-spaced sans with a gold rule.
+- Theme applied pre-paint by an inline script in `app/layout.tsx`: **light unless** `localStorage["sk-theme"] === "dark"`. `ThemeToggle` flips `.dark` and persists.
+- The **hero follows the theme** (light mint wash over the photo in light mode, deep teal in dark) via the `--hero-*` variables, so the header always uses normal tokens — no overlay mode.
+- `.text-shine` = teal→gold gradient text on section-heading accent words.
 
 ## Structure
 
-`app/page.tsx` composes: Header → Hero → Marquee → About → Services → WhyUs → Process → Testimonials → Contact → Footer, plus `ScrollCompanion` (fixed overlay). All components live in `components/`, one file per section. The logo is a text wordmark (`components/Logo.tsx`) — no image asset.
+Nav (client-specified): **About | Services | Latest Updates | Contact**.
 
-Notable components:
-- `Hero` — premium **dark treatment in both themes**: accounting photo (`public/hero-bg.jpg`) under a deep-teal overlay, so it uses fixed hex colours (not tokens). The header floats over it with fixed light colours until scrolled (`Logo tone="overlay"`, `ThemeToggle overlay`).
-- `HeroIllustration` — glassmorphism dashboard cards (analytics + savings ring + compliance checklist), fixed light-on-dark styling, staggered entrances and floating loops; top-aligned with the headline.
-- `ScrollCompanion` — character pinned to the right edge that travels top→bottom with scroll progress (spring-smoothed): **sun in light mode, moon in dark mode** (tracks the `.dark` class with a MutationObserver). Hidden for reduced motion.
-- `ThemeToggle` — sun/moon button; see Theming.
+`app/page.tsx` composes: Header → Hero → Marquee → About → Services → Process → **Updates** → Contact → Footer, plus `ScrollCompanion`. Why-Us and Testimonials were **removed at the client's request (Oct 2026)**; don't reintroduce them.
 
-Shared animation primitives are in `components/Reveal.tsx`:
-- `Reveal` — scroll-triggered fade/slide (uses `whileInView`)
-- `SplitText` — word-by-word masked headline reveal. **Gotcha:** the animated words are fully clipped by `overflow-hidden`, so `whileInView` on them never fires; visibility is observed on the unclipped container via `useInView` instead. Don't "simplify" this back.
+- `Hero` — photo (`public/hero-bg.jpg`) under theme-reactive overlays; glass dashboard cards (`HeroIllustration`) in an aligned 5-col grid, top offset `lg:pt-9` to sit on the headline's line. The image `src` must prefix `process.env.NEXT_PUBLIC_BASE_PATH` (see Deployment).
+- `Services` — accordion of the 5 services from `lib/site.ts`; first item open by default; each expands to a two-column ✓ list of sub-services.
+- `Updates` — "Latest Updates" cards (Sri Lankan tax developments). **Keep entries current and client-approved**; each card links to `#contact`. The disclaimer line ("general information, not advice") stays.
+- `ScrollCompanion` — sun (light) / moon (dark) character traveling the right edge with scroll; tracks `.dark` via MutationObserver; hidden for reduced motion.
+- `Reveal` / `SplitText` in `components/Reveal.tsx` — **Gotcha:** `SplitText`'s words are clipped by `overflow-hidden`, so visibility is observed on the unclipped container via `useInView`. Don't "simplify" this back.
 
-All animation components respect `prefers-reduced-motion` via `useReducedMotion`.
+All animation components respect `prefers-reduced-motion`.
+
+## SEO
+
+- Metadata in `app/layout.tsx`: unique title/description, canonical, Open Graph + Twitter. **Gotcha:** `metadataBase` must be the bare origin (`SITE_ORIGIN`), not the full site URL — Next already prefixes `basePath` onto metadata routes, so a basePath-bearing `metadataBase` doubles the segment in og:image URLs. Canonical/OG urls use absolute `SITE_URL`.
+- JSON-LD (`AccountingService` + `WebSite` + `BreadcrumbList`) rendered in `layout.tsx` from `lib/site.ts`.
+- `app/robots.ts`, `app/sitemap.ts` (both `force-static`), `app/not-found.tsx` (exports as `404.html`, which GitHub Pages serves automatically).
+- Icons: `app/icon.svg`, `app/apple-icon.png`, `app/favicon.ico`, `app/opengraph-image.png` (+ `.alt.txt`). Regenerate PNG/ICO with Pillow if the brand changes (SK monogram, ink/gold/teal).
 
 ## Deployment
 
-Static export to **GitHub Pages** at https://dumanga.github.io/sk-taxation-landing/, via
-`.github/workflows/deploy.yml` on every push to `main` (or manual `workflow_dispatch`).
+Static export to **GitHub Pages** at https://dumanga.github.io/sk-taxation-landing/, via `.github/workflows/deploy.yml` on push to `main`.
 
-- `next.config.ts` sets `output: "export"`, `trailingSlash: true`, and `images.unoptimized`.
-- `basePath`/`assetPrefix` are applied **only** when `GITHUB_PAGES=true` (set by the workflow),
-  so `npm run dev` still serves at the root.
-- **Gotcha:** `images.unoptimized` bypasses the image loader, so `next/image` does *not*
-  prefix `basePath` onto `src`. Any `src` pointing at `public/` must prefix it manually with
-  `process.env.NEXT_PUBLIC_BASE_PATH` (exported from `next.config.ts` via `env`), as
-  `Hero.tsx` does for `hero-bg.jpg`. Without this the image 404s on Pages but works locally.
-- The repo must stay **public** for Pages to serve on a free GitHub plan.
+- `next.config.ts`: `output: "export"`, `trailingSlash: true`, `images.unoptimized`; `basePath`/`assetPrefix` only when `GITHUB_PAGES=true` (set by the workflow), so local dev serves at root.
+- **Gotcha:** `images.unoptimized` bypasses the loader, so `next/image` does NOT prefix `basePath` onto `src` — prefix manually with `process.env.NEXT_PUBLIC_BASE_PATH` (exported via `env` in `next.config.ts`), as `Hero.tsx` does.
+- robots.txt/sitemap.xml live under the basePath; they become spec-correct (root-level) once the client moves to a custom domain — then update `SITE_ORIGIN`/`SITE_URL` in `lib/site.ts`.
+- The repo must stay **public** for Pages on a free GitHub plan.
 
 ## Conventions
 
 - Update `PROGRESS.md` with a dated entry (date **and** time) after any meaningful change — client requirement.
-- Contact details (`+94 11 234 5678`, `hello@sktaxation.com`) are placeholders pending real client info.
-- The contact form has no backend: submit builds a `mailto:` URL from the field values (opens the visitor's mail app with a pre-filled draft) and then shows a thank-you state.
+- The contact form has no backend: submit builds a `mailto:` URL (opens the visitor's mail app pre-filled), then shows a thank-you state.

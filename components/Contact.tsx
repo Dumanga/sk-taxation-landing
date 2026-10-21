@@ -2,8 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
-
-const CONTACT_EMAIL = "hello@sktaxation.com";
+import { BUSINESS } from "@/lib/site";
 
 const inputClasses =
   "w-full border-b border-line bg-transparent py-3 text-ink placeholder:text-muted/70 transition-colors duration-300 focus:border-gold focus:outline-none";
@@ -16,7 +15,7 @@ export function Contact() {
     const data = new FormData(e.currentTarget);
     const get = (key: string) => String(data.get(key) ?? "").trim();
 
-    const subject = `Consultation request — ${get("name")}`;
+    const subject = `Consultation request from ${get("name")}`;
     const body = [
       `Name: ${get("name")}`,
       `Email: ${get("email")}`,
@@ -28,7 +27,7 @@ export function Contact() {
       .filter(Boolean)
       .join("\n");
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+    window.location.href = `mailto:${BUSINESS.email}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
     setSent(true);
@@ -58,19 +57,31 @@ export function Contact() {
                 <dt className="text-xs font-medium uppercase tracking-[0.24em] text-muted">
                   Call Us
                 </dt>
-                <dd className="mt-1 font-serif text-xl">+94 11 234 5678</dd>
+                <dd className="mt-1 font-serif text-xl">
+                  <a href={`tel:${BUSINESS.phones[0]}`} className="transition-colors hover:text-gold">
+                    {BUSINESS.phonesDisplay[0]}
+                  </a>{" "}
+                  <span className="text-muted">/</span>{" "}
+                  <a href={`tel:${BUSINESS.phones[1]}`} className="transition-colors hover:text-gold">
+                    {BUSINESS.phonesDisplay[1]}
+                  </a>
+                </dd>
               </div>
               <div>
                 <dt className="text-xs font-medium uppercase tracking-[0.24em] text-muted">
                   Mail Us
                 </dt>
-                <dd className="mt-1 font-serif text-xl">hello@sktaxation.com</dd>
+                <dd className="mt-1 font-serif text-xl">
+                  <a href={`mailto:${BUSINESS.email}`} className="transition-colors hover:text-gold">
+                    {BUSINESS.email}
+                  </a>
+                </dd>
               </div>
               <div>
                 <dt className="text-xs font-medium uppercase tracking-[0.24em] text-muted">
                   Working Hours
                 </dt>
-                <dd className="mt-1 font-serif text-xl">Mon – Fri, 9 am to 5 pm</dd>
+                <dd className="mt-1 font-serif text-xl">{BUSINESS.hours}</dd>
               </div>
             </dl>
           </Reveal>
@@ -84,8 +95,8 @@ export function Contact() {
               </span>
               <h3 className="font-serif text-3xl font-medium">Thank you.</h3>
               <p className="mt-3 text-muted">
-                Your email app has opened with your request pre-filled — just
-                press send. We&apos;ll be in touch within 24 hours.
+                Your email app has opened with your request pre-filled. Just
+                press send, and we&apos;ll be in touch within 24 hours.
               </p>
             </div>
           ) : (

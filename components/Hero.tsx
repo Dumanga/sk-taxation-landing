@@ -14,10 +14,9 @@ const stats = [
 ];
 
 /**
- * Premium dark hero in BOTH themes (photo + teal overlay), but theme-reactive:
- * the overlay tone, glass brightness and the bottom fade all shift with the
- * toggle so switching themes is visible even while on the hero.
- * Vertical rhythm is compressed so the stats row fits a laptop's first screen.
+ * The hero follows the theme: a light mint wash over the photo in light mode
+ * (the client asked for a light-coloured site), a deep teal treatment in dark
+ * mode. All colours come from theme tokens, so both renditions stay on-brand.
  */
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -36,11 +35,10 @@ export function Hero() {
       <motion.div
         style={reduce ? undefined : { y: yBg }}
         className="absolute inset-x-0 -inset-y-[8%]"
-        aria-hidden
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/hero-bg.jpg`}
-          alt=""
+          alt="Tax documents, a calculator and a pen on an accountant's desk"
           fill
           priority
           sizes="100vw"
@@ -48,13 +46,13 @@ export function Hero() {
         />
         <div className="absolute inset-0 bg-(--hero-overlay) transition-colors duration-500" />
         {/* Left scrim keeps the headline readable in both themes */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03120f]/75 via-[#03120f]/35 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-(--hero-scrim) via-(--hero-scrim-mid) to-transparent transition-colors duration-500" />
       </motion.div>
 
       {/* Gold + teal glows */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 right-[-12%] h-[480px] w-[480px] rounded-full bg-[#f0b452]/15 blur-3xl" />
-        <div className="absolute bottom-[-25%] left-[-12%] h-[420px] w-[420px] rounded-full bg-[#35d0bc]/15 blur-3xl" />
+        <div className="absolute -top-40 right-[-12%] h-[480px] w-[480px] rounded-full bg-gold/15 blur-3xl" />
+        <div className="absolute bottom-[-25%] left-[-12%] h-[420px] w-[420px] rounded-full bg-teal/15 blur-3xl" />
       </div>
 
       <motion.div
@@ -66,17 +64,17 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.32em] text-[#f0b452]"
+            className="mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.32em] text-gold"
           >
-            <span className="h-px w-10 bg-[#f0b452]" />
+            <span className="h-px w-10 bg-gold" />
             Tax Advisers &amp; Consultants
           </motion.p>
 
-          <h1 className="font-serif text-[2.5rem] leading-[1.06] font-medium text-[#f4faf7] sm:text-5xl xl:text-[3.6rem]">
+          <h1 className="font-serif text-[2.5rem] leading-[1.06] font-medium text-ink sm:text-5xl xl:text-[3.6rem]">
             <SplitText text="Clarity in every number." delay={0.2} />
             <br />
             <SplitText text="Confidence in every" delay={0.5} />{" "}
-            <em className="text-[#f0b452] not-italic">
+            <em className="text-gold not-italic">
               <SplitText text="decision." delay={0.8} />
             </em>
           </h1>
@@ -85,10 +83,10 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1 }}
-            className="mt-6 max-w-xl leading-relaxed text-[#b9d2c9]"
+            className="mt-6 max-w-xl leading-relaxed text-muted"
           >
             SK Taxation guides businesses and individuals through tax planning,
-            compliance and financial strategy — personalised advice that
+            compliance and financial strategy, with personalised advice that
             protects your wealth and keeps you ahead of every deadline.
           </motion.p>
 
@@ -100,17 +98,19 @@ export function Hero() {
           >
             <a
               href="#contact"
-              className="group relative overflow-hidden rounded-full bg-[#f0b452] px-7 py-3.5 text-sm font-semibold tracking-wide text-[#08221d]"
+              className="group relative overflow-hidden rounded-full bg-ink px-7 py-3.5 text-sm font-semibold tracking-wide text-cream"
             >
-              <span className="relative z-10">Book a Consultation</span>
-              <span className="absolute inset-0 -translate-x-full bg-[#35d0bc] transition-transform duration-400 ease-out group-hover:translate-x-0" />
+              <span className="relative z-10 transition-colors duration-300 group-hover:text-[#1d2a26]">
+                Book a Consultation
+              </span>
+              <span className="absolute inset-0 -translate-x-full bg-gold transition-transform duration-400 ease-out group-hover:translate-x-0" />
             </a>
             <a
               href="#services"
-              className="group inline-flex items-center gap-2 text-sm font-medium tracking-wide text-[#f4faf7]"
+              className="group inline-flex items-center gap-2 text-sm font-medium tracking-wide text-ink"
             >
               Explore Services
-              <span className="inline-block text-[#f0b452] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+              <span className="inline-block text-gold transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                 ↗
               </span>
             </a>
@@ -120,15 +120,15 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.35 }}
-            className="mt-10 grid max-w-xl grid-cols-3 gap-6 border-t border-white/15 pt-6"
+            className="mt-10 grid max-w-xl grid-cols-3 gap-6 border-t border-line pt-6 transition-colors duration-500"
           >
             {stats.map((stat) => (
               <div key={stat.label}>
-                <p className="font-serif text-3xl font-medium text-[#f4faf7]">
+                <p className="font-serif text-3xl font-medium text-ink">
                   <Counter to={stat.value} />
-                  <span className="text-[#f0b452]">{stat.suffix}</span>
+                  <span className="text-gold">{stat.suffix}</span>
                 </p>
-                <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#93b1a7]">
+                <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted">
                   {stat.label}
                 </p>
               </div>

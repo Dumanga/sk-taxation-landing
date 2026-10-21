@@ -17,7 +17,7 @@ import {
 export function ScrollCompanion() {
   const reduce = useReducedMotion();
   const [travel, setTravel] = useState(0);
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     const measure = () => setTravel(Math.max(window.innerHeight - 150, 0));

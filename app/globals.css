@@ -20,10 +20,12 @@
   --teal: #089a86;
   --line: #bcdfd0;
   --surface: #fbfffd;
-  /* Hero stays dark in both themes but responds to the toggle:
-     lighter teal overlay + brighter glass in light mode. */
-  --hero-overlay: rgba(11, 64, 54, 0.72);
-  --hero-glass: rgba(255, 255, 255, 0.14);
+  /* Hero follows the theme: a light mint wash over the photo in light mode,
+     a deep teal treatment in dark mode. */
+  --hero-overlay: rgba(240, 250, 245, 0.88);
+  --hero-scrim: rgba(231, 245, 239, 0.95);
+  --hero-scrim-mid: rgba(231, 245, 239, 0.5);
+  --hero-glass: rgba(255, 255, 255, 0.72);
 }
 
 .dark {
@@ -38,6 +40,8 @@
   --line: #17352f;
   --surface: #0e2b26;
   --hero-overlay: rgba(4, 27, 23, 0.84);
+  --hero-scrim: rgba(3, 18, 15, 0.8);
+  --hero-scrim-mid: rgba(3, 18, 15, 0.38);
   --hero-glass: rgba(255, 255, 255, 0.07);
 }
 

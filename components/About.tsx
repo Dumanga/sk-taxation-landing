@@ -48,7 +48,7 @@ export function About() {
             </p>
             <p className="mt-6 leading-relaxed text-muted">
               We provide a personalised level of service aimed at maximising our
-              clients&apos; wealth — delivering integrated solutions that help
+              clients&apos; wealth, delivering integrated solutions that help
               secure and grow businesses without compromising ethics or social
               responsibility.
             </p>

@@ -45,3 +45,6 @@ next-env.d.ts
 
 # client documents (not for the public repo)
 *.xlsx
+
+# playwright mcp session artifacts
+.playwright-mcp/

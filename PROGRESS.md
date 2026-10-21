@@ -1,5 +1,39 @@
 # Progress Log — SK Taxation Landing Page
 
+## 2026-10-21 11:45
+
+**Client revision round (from "Web Site.docx") + SEO/quality hardening.**
+
+Content and structure, per the client's Word doc:
+- New `lib/site.ts` as single source of truth for business facts and services.
+- Services rebuilt with the client's five practice areas and full sub-service lists
+  (Tax Consultancy, Audit & Assurance, Accounting, CFO, Company Secretarial); accordion now
+  expands to a two-column checklist, first item open by default.
+- Removed Why-Us and Testimonials sections (client request). Added "Latest Updates" section
+  (`components/Updates.tsx`) in Testimonials' place: three dated Sri Lankan tax-update cards
+  (Apr 2025 personal relief Rs 1.8M, Apr 2025 WHT on interest 10%, Jan 2024 VAT 18%) with a
+  not-advice disclaimer. **Client should confirm these and send future updates.**
+- Nav is now About | Services | Latest Updates | Contact (header, mobile menu, footer).
+- Real client phone numbers wired in (0777 14 16 48 / 076 919 4508) as tel: links in Contact
+  and Footer. Email/hours/stats remain placeholders pending the content form.
+- **Light theme is now the default** ("Light Color Website"); dark stays via toggle. The hero
+  now follows the theme: light mint wash over the photo in light mode, deep teal in dark
+  (new --hero-overlay/scrim/glass variables); header overlay mode removed; glass cards and
+  all hero text use theme tokens.
+
+SEO and quality (owner's checklist):
+- Full metadata: unique titles, meta description, canonical, Open Graph + Twitter cards,
+  generated OG image (1200x630), branded favicon set (icon.svg, apple-icon.png, favicon.ico).
+  Fixed a metadataBase gotcha that doubled the basePath in og:image URLs.
+- JSON-LD structured data: AccountingService (with offer catalogue + contact points),
+  WebSite, BreadcrumbList.
+- app/robots.ts and app/sitemap.ts (static) and a designed 404 page (app/not-found.tsx,
+  exported as 404.html which GitHub Pages serves automatically).
+- Exactly one h1; descriptive alt text on the hero photo; no em/en dashes anywhere in copy;
+  no lorem ipsum; no purple; console verified clean; largest JS chunk ~71 KB gzipped.
+- ThemeToggle refactored to useSyncExternalStore (fixes react-hooks lint, stays in sync with
+  external theme changes). Lint and static export both clean.
+
 ## 2026-08-09 16:22
 
 **Client approved the design. Created the content-collection workbook.**
