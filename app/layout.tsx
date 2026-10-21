@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 
 /* Applies the theme before first paint; LIGHT is the default unless the
    visitor explicitly chose dark. */
-const themeInit = `(function(){try{if(localStorage.getItem("sk-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}})()`;
+const themeInit = `(function(){try{if(localStorage.getItem("sk-theme-v2")==="dark")document.documentElement.classList.add("dark")}catch(e){}})()`;
 
 /* Structured data: the business, its service catalogue, the website and a
    breadcrumb trail for the page's main sections. */

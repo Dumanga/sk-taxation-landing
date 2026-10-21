@@ -25,7 +25,7 @@ export function ThemeToggle({ overlay = false }: { overlay?: boolean }) {
     const next = !dark;
     document.documentElement.classList.toggle("dark", next);
     try {
-      localStorage.setItem("sk-theme", next ? "dark" : "light");
+      localStorage.setItem("sk-theme-v2", next ? "dark" : "light");
     } catch {
       /* private browsing — theme just won't persist */
     }

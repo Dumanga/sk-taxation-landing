@@ -1,5 +1,25 @@
 # Progress Log — SK Taxation Landing Page
 
+## 2026-10-21 11:47
+
+**Light-default fix for returning visitors, brighter light palette, verified + refreshed updates.**
+
+- **Why dark still loaded for the client/owner:** their browsers stored `sk-theme: "dark"` from
+  the era when dark was the default, and the init script honours stored choices. Fixed by
+  versioning the storage key to `sk-theme-v2`, so the new light default applies to everyone;
+  choices made from now on persist under the new key.
+- Light palette brightened for a lighter vibe: page `#f2faf6`, alt sections `#e1f2e9`, pure
+  white cards, brighter hero wash and glass (text colours untouched, contrast preserved).
+- **Latest Updates fact-checked via web search** against IRD notices, the gazetted Acts, KPMG
+  tax alerts and news coverage: Rs. 1.8M personal relief (IR Amendment Act No. 2 of 2025) and
+  AIT on interest 5%→10% from 1 Apr 2025 both confirmed; VAT 18%/Rs. 60M threshold from
+  Jan 2024 confirmed but replaced as stale. New lead card: Inland Revenue (Amendment) Act
+  No. 11 of 2026 (CGT to 15% for individuals/partnerships, Rs. 500,000+ payments through
+  banking channels, arrears interest waiver). WHT card wording tightened to "advance income
+  tax withheld on interest".
+- Verified on the built export: light loads by default even with the old dark preference
+  stored; lint and static export clean.
+
 ## 2026-10-21 11:45
 
 **Client revision round (from "Web Site.docx") + SEO/quality hardening.**

@@ -3,29 +3,29 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * SK Taxation palette — dark is the default theme; the light theme is a
- * crisp white/mint scheme with deep teal + amber accents. Both themes share
- * the same semantic tokens, flipped via the `.dark` class.
+ * SK Taxation palette — LIGHT is the default theme (client requirement): a
+ * bright white/mint scheme with deep teal + amber accents. Dark is opt-in.
+ * Both themes share the same semantic tokens, flipped via the `.dark` class.
  * Sections styled `bg-ink text-cream` intentionally invert in dark mode.
  * (Token names are legacy: "cream" = page background, "ink" = foreground.)
  */
 :root {
-  --cream: #e7f5ef;
-  --cream-dark: #d4ecdf;
+  --cream: #f2faf6;
+  --cream-dark: #e1f2e9;
   --ink: #06332c;
   --ink-soft: #14584a;
-  --muted: #47776a;
+  --muted: #4b7a6d;
   --gold: #d3941f;
   --gold-soft: #e9b95d;
   --teal: #089a86;
-  --line: #bcdfd0;
-  --surface: #fbfffd;
-  /* Hero follows the theme: a light mint wash over the photo in light mode,
+  --line: #cfe8dc;
+  --surface: #ffffff;
+  /* Hero follows the theme: a bright mint wash over the photo in light mode,
      a deep teal treatment in dark mode. */
-  --hero-overlay: rgba(240, 250, 245, 0.88);
-  --hero-scrim: rgba(231, 245, 239, 0.95);
-  --hero-scrim-mid: rgba(231, 245, 239, 0.5);
-  --hero-glass: rgba(255, 255, 255, 0.72);
+  --hero-overlay: rgba(246, 252, 249, 0.9);
+  --hero-scrim: rgba(242, 250, 246, 0.96);
+  --hero-scrim-mid: rgba(242, 250, 246, 0.55);
+  --hero-glass: rgba(255, 255, 255, 0.8);
 }
 
 .dark {

@@ -4,28 +4,30 @@ import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
 
 /* Keep these current: each entry is a short, factual note on a Sri Lankan
-   tax development, newest first. Swap entries as the client sends new ones. */
+   tax development, newest first. Facts verified against IRD notices, the
+   gazetted Acts and KPMG tax alerts; swap entries as the client sends new
+   ones. */
 const updates = [
+  {
+    date: "June 2026",
+    tag: "Income Tax",
+    title: "Inland Revenue (Amendment) Act No. 11 of 2026",
+    summary:
+      "Capital gains tax for individuals and partnerships rose to 15%, and payments of Rs. 500,000 or more must now go through banking channels. An interest waiver on old tax arrears is available if the principal is settled in time.",
+  },
   {
     date: "April 2025",
     tag: "Income Tax",
     title: "Personal relief increased to Rs. 1.8 million",
     summary:
-      "The annual personal relief rose from Rs. 1.2 million with effect from 1 April 2025, and the lower rate bands were widened. Employees under APIT should see the change reflected in monthly deductions.",
+      "The annual personal relief rose from Rs. 1.2 million with effect from 1 April 2025, and the first tax band was widened to Rs. 1 million at 6%. Employees under APIT should see the change in monthly deductions.",
   },
   {
     date: "April 2025",
     tag: "Withholding Tax",
-    title: "WHT on interest revised to 10%",
+    title: "Tax withheld on interest doubled to 10%",
     summary:
-      "Withholding tax on interest income doubled from 5% to 10% with effect from 1 April 2025. Depositors and treasury managers should review cash flow forecasts and confirm banks are deducting correctly.",
-  },
-  {
-    date: "January 2024",
-    tag: "VAT",
-    title: "VAT at 18% and a lower registration threshold",
-    summary:
-      "The standard VAT rate moved to 18% and the registration threshold fell to Rs. 60 million of annual turnover. Businesses approaching the threshold should assess their registration position early.",
+      "Advance income tax withheld on interest income rose from 5% to 10% with effect from 1 April 2025. Depositors and treasury managers should review cash flow forecasts and confirm banks are deducting correctly.",
   },
 ];
 

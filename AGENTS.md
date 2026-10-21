@@ -33,16 +33,16 @@ Semantic CSS variables on `:root` (light) and `.dark` in `app/globals.css`, mapp
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `cream` / `cream-dark` | `#e7f5ef` / `#d4ecdf` | `#071d1a` / `#0c2824` | page + alternate section backgrounds |
+| `cream` / `cream-dark` | `#f2faf6` / `#e1f2e9` | `#071d1a` / `#0c2824` | page + alternate section backgrounds |
 | `ink` / `ink-soft` | `#06332c` / `#14584a` | `#e9f5f0` / `#c9e2d8` | headings, inverted bands / body emphasis |
-| `muted` | `#47776a` | `#8fada4` | secondary text |
+| `muted` | `#4b7a6d` | `#8fada4` | secondary text |
 | `gold` / `gold-soft` | `#d3941f` / `#e9b95d` | `#f0b452` / `#c98b2d` | primary accent |
 | `teal` | `#089a86` | `#35d0bc` | secondary accent, gradients |
-| `line` | `#bcdfd0` | `#17352f` | borders/dividers |
-| `surface` | `#fbfffd` | `#0e2b26` | cards, form panels |
+| `line` | `#cfe8dc` | `#17352f` | borders/dividers |
+| `surface` | `#ffffff` | `#0e2b26` | cards, form panels |
 | `--hero-overlay/scrim/glass` | mint wash / frosted white | deep teal / faint film | hero photo treatment |
 
-- Theme applied pre-paint by an inline script in `app/layout.tsx`: **light unless** `localStorage["sk-theme"] === "dark"`. `ThemeToggle` flips `.dark` and persists.
+- Theme applied pre-paint by an inline script in `app/layout.tsx`: **light unless** `localStorage["sk-theme-v2"] === "dark"`. `ThemeToggle` flips `.dark` and persists.
 - The **hero follows the theme** (light mint wash over the photo in light mode, deep teal in dark) via the `--hero-*` variables, so the header always uses normal tokens — no overlay mode.
 - `.text-shine` = teal→gold gradient text on section-heading accent words.
 
