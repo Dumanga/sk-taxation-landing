@@ -1,5 +1,18 @@
 # Progress Log — SK Taxation Landing Page
 
+## 2026-10-21 12:13
+
+**Client site is LIVE: https://sk-taxation.github.io/official-website/**
+
+- Client enabled Pages (Source: GitHub Actions) on sk-taxation/official-website; re-ran the
+  deploy workflow via workflow_dispatch; conclusion: success.
+- Verified live: home, article pages, designed 404, robots.txt, sitemap (7 URLs, correct
+  host), OG image all serving; canonical and hero image paths correctly use
+  /official-website; real phone numbers present; carousel renders all 6 cards.
+- The client's repo is now the canonical deployment. The development copy at
+  https://dumanga.github.io/sk-taxation-landing/ deploys from the same code (URLs derive
+  from GITHUB_REPOSITORY), handy as a staging preview before pushing to the client remote.
+
 ## 2026-10-21 12:08
 
 **Contact form mail handoff hardened; project handed over to the client's repo.**
