@@ -1,5 +1,23 @@
 # Progress Log — SK Taxation Landing Page
 
+## 2026-10-21 12:08
+
+**Contact form mail handoff hardened; project handed over to the client's repo.**
+
+- Contact form: visitor fills name, email, phone (now required), company (optional) and
+  message; submitting fires the mailto via a synthetic anchor click (more reliable across
+  browsers than a location change) so the visitor's default mail app opens with the draft
+  addressed to the firm. The thank-you panel now includes fallbacks: "open the draft again"
+  and a direct mailto link, for devices with no mail app configured. Fixed the body spacer
+  line that filter(Boolean) was eating. Destination address is still the placeholder
+  hello@sktaxation.com; swap in `lib/site.ts` when the client provides the real one.
+- Deployment made repo-aware: basePath, canonical/OG URLs, JSON-LD and sitemap all derive
+  from GITHUB_REPOSITORY at build time. Pushed to the client's repo
+  **sk-taxation/official-website** (collaborator access confirmed: public repo, empty,
+  push rights); its Pages site self-enables via the workflow.
+  Canonical site: https://sk-taxation.github.io/official-website/
+  Development copy continues at https://dumanga.github.io/sk-taxation-landing/.
+
 ## 2026-10-21 11:57
 
 **Latest Updates expanded to six researched items with a carousel and full article pages.**

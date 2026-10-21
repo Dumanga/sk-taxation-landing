@@ -8,7 +8,7 @@ const inputClasses =
   "w-full border-b border-line bg-transparent py-3 text-ink placeholder:text-muted/70 transition-colors duration-300 focus:border-gold focus:outline-none";
 
 export function Contact() {
-  const [sent, setSent] = useState(false);
+  const [mailtoUrl, setMailtoUrl] = useState<string | null>(null);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,21 +16,31 @@ export function Contact() {
     const get = (key: string) => String(data.get(key) ?? "").trim();
 
     const subject = `Consultation request from ${get("name")}`;
-    const body = [
+    const lines = [
       `Name: ${get("name")}`,
       `Email: ${get("email")}`,
-      get("phone") && `Phone: ${get("phone")}`,
-      get("company") && `Company: ${get("company")}`,
-      "",
-      get("message"),
-    ]
-      .filter(Boolean)
-      .join("\n");
+      `Phone: ${get("phone")}`,
+    ];
+    if (get("company")) lines.push(`Company: ${get("company")}`);
+    lines.push("", get("message"));
+    const body = lines.join("\n");
 
-    window.location.href = `mailto:${BUSINESS.email}?subject=${encodeURIComponent(
+    const url = `mailto:${BUSINESS.email}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+
+    /* Open the visitor's default mail app with the draft. A synthetic anchor
+       click inside the submit gesture is the most reliable trigger across
+       browsers; the thank-you state keeps a manual link as a fallback for
+       devices with no mail app configured. */
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.rel = "noopener";
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+
+    setMailtoUrl(url);
   };
 
   return (
@@ -88,15 +98,32 @@ export function Contact() {
         </div>
 
         <Reveal delay={0.1}>
-          {sent ? (
+          {mailtoUrl ? (
             <div className="flex h-full flex-col items-start justify-center rounded-2xl border border-line bg-surface p-10">
               <span className="mb-4 text-3xl text-gold" aria-hidden>
                 ✦
               </span>
-              <h3 className="font-serif text-3xl font-medium">Thank you.</h3>
+              <h3 className="font-serif text-3xl font-medium">Almost there.</h3>
               <p className="mt-3 text-muted">
-                Your email app has opened with your request pre-filled. Just
-                press send, and we&apos;ll be in touch within 24 hours.
+                Your email app should have opened with your request pre-filled.
+                Just press send, and we&apos;ll be in touch within 24 hours.
+              </p>
+              <p className="mt-4 text-sm text-muted">
+                Nothing opened?{" "}
+                <a
+                  href={mailtoUrl}
+                  className="font-medium text-teal underline-offset-4 hover:underline"
+                >
+                  Open the email draft again
+                </a>{" "}
+                or write to us directly at{" "}
+                <a
+                  href={`mailto:${BUSINESS.email}`}
+                  className="font-medium text-teal underline-offset-4 hover:underline"
+                >
+                  {BUSINESS.email}
+                </a>
+                .
               </p>
             </div>
           ) : (
@@ -121,7 +148,13 @@ export function Contact() {
                 </label>
                 <label className="block">
                   <span className="sr-only">Phone</span>
-                  <input name="phone" placeholder="Phone Number" className={inputClasses} />
+                  <input
+                    required
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    className={inputClasses}
+                  />
                 </label>
                 <label className="block">
                   <span className="sr-only">Company</span>

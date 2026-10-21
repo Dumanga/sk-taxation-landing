@@ -3,9 +3,16 @@
 
 /* Origin and full site URL are separate because Next already prefixes
    basePath onto metadata routes: metadataBase must be the bare origin or
-   generated asset URLs double the /sk-taxation-landing segment. */
-export const SITE_ORIGIN = "https://dumanga.github.io";
-export const SITE_URL = `${SITE_ORIGIN}/sk-taxation-landing`;
+   generated asset URLs double the repo segment.
+   Both derive from GITHUB_REPOSITORY at build time (set by GitHub Actions),
+   so the client's sk-taxation/official-website and the development copy at
+   Dumanga/sk-taxation-landing each emit self-consistent absolute URLs.
+   The fallback is the client's official repo. */
+const [ghOwner, ghRepo] = (
+  process.env.GITHUB_REPOSITORY ?? "sk-taxation/official-website"
+).split("/");
+export const SITE_ORIGIN = `https://${ghOwner.toLowerCase()}.github.io`;
+export const SITE_URL = `${SITE_ORIGIN}/${ghRepo}`;
 
 export const BUSINESS = {
   name: "SK Taxation",

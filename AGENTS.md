@@ -69,7 +69,7 @@ All animation components respect `prefers-reduced-motion`.
 
 ## Deployment
 
-Static export to **GitHub Pages** at https://dumanga.github.io/sk-taxation-landing/, via `.github/workflows/deploy.yml` on push to `main`.
+Static export to **GitHub Pages** via `.github/workflows/deploy.yml` on push to `main`. The canonical deployment is the client's repo **sk-taxation/official-website** (https://sk-taxation.github.io/official-website/); the development copy at Dumanga/sk-taxation-landing (https://dumanga.github.io/sk-taxation-landing/) still deploys from the same code. basePath and all absolute URLs derive from `GITHUB_REPOSITORY` at build time, so each repo emits self-consistent links; the local fallback is the client repo.
 
 - `next.config.ts`: `output: "export"`, `trailingSlash: true`, `images.unoptimized`; `basePath`/`assetPrefix` only when `GITHUB_PAGES=true` (set by the workflow), so local dev serves at root.
 - **Gotcha:** `images.unoptimized` bypasses the loader, so `next/image` does NOT prefix `basePath` onto `src` — prefix manually with `process.env.NEXT_PUBLIC_BASE_PATH` (exported via `env` in `next.config.ts`), as `Hero.tsx` does.
